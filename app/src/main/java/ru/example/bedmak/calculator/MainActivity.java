@@ -1,10 +1,13 @@
 package ru.example.bedmak.calculator;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewDebug;
 import android.widget.TextView;
+
+import values.NumPanelFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
             flagDot = savedInstanceState.getBoolean("flagDot");
             ((TextView) findViewById(R.id.textView)).setText(savedInstanceState.getString("onScreen"));
         }
+        NumPanelFragment numPanel = new NumPanelFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.NumPanel, numPanel);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
     }
 
     public void onClick(View view) {
