@@ -48,8 +48,9 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
         return ((TextView) findViewById(R.id.textView)).getText().toString();
     }
 
-
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString("onScreen", getResult());
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("onScreen", getResult());
     }
 }
