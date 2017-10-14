@@ -15,6 +15,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
     private float value = 0;
     private int typeOperation = 0;
     private boolean flagDot = false;
+    private boolean flagMinus = false;
     private MainViewListener listener;
 
     @Override
@@ -29,12 +30,6 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -46,20 +41,42 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         if (savedInstanceState != null) {
             value = savedInstanceState.getFloat("value");
             typeOperation = savedInstanceState.getInt("typeOperation");
-            flagDot = savedInstanceState.getBoolean("flag");
+            flagDot = savedInstanceState.getBoolean("flagDot");
+            flagMinus = savedInstanceState.getBoolean("flagMinus");
         }
         initButtons(view);
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putFloat("value", value);
+        outState.putInt("typeOperation", typeOperation);
+        outState.putBoolean("flagDot", flagDot);
+        outState.putBoolean("flagMinus", flagMinus);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
+    @Override
     public void onClick(View view) {
 
+        String text = "";
+        if(!listener.getResult().equals("0")) {
+            text = listener.getResult();
+        }
         if (view.getId() == R.id.buttonAC) {
-            listener.setResult("");
+            listener.setResult("0");
+            flagMinus = false;
+            flagDot = false;
         } else if (view.getId() == R.id.buttonPlusMinus) {
-
-        } else if (view.getId() == R.id.buttonPercent) {         //Сделать коректное деление на 100
-
+            setMinusPlus();
+        } else if (view.getId() == R.id.buttonPercent) {
+            value = Float.parseFloat(listener.getResult()) / 100;
+            checkForDot();
         } else if (view.getId() == R.id.buttonAddition) {
             setTypeOperation(1);
         } else if (view.getId() == R.id.buttonSubtraction) {
@@ -70,28 +87,28 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
             setTypeOperation(4);
         } else if (view.getId() == R.id.buttonEquality) {
             doOperation();
-        } else if(view.getId() == R.id.buttonDot){
-            setFlagDot();
-        } else if(view.getId() == R.id.button_0){
-            listener.setResult("0");
-        } else if(view.getId() == R.id.button_1){
-            listener.setResult("1");
-        } else if(view.getId() == R.id.button_2){
-            listener.setResult("2");
-        } else if(view.getId() == R.id.button_3){
-            listener.setResult("3");
-        } else if(view.getId() == R.id.button_4){
-            listener.setResult("4");
-        } else if(view.getId() == R.id.button_5){
-            listener.setResult("5");
-        } else if(view.getId() == R.id.button_6){
-            listener.setResult("6");
-        } else if(view.getId() == R.id.button_7){
-            listener.setResult("7");
-        } else if(view.getId() == R.id.button_8){
-            listener.setResult("8");
+        } else if(view.getId() == R.id.buttonDot) {
+            setDot();
+        } else if(view.getId() == R.id.button_0) {
+            listener.setResult(text + "0");
+        } else if(view.getId() == R.id.button_1) {
+            listener.setResult(text +"1");
+        } else if(view.getId() == R.id.button_2) {
+            listener.setResult(text + "2");
+        } else if(view.getId() == R.id.button_3) {
+            listener.setResult(text + "3");
+        } else if(view.getId() == R.id.button_4) {
+            listener.setResult(text + "4");
+        } else if(view.getId() == R.id.button_5) {
+            listener.setResult(text + "5");
+        } else if(view.getId() == R.id.button_6) {
+            listener.setResult(text + "6");
+        } else if(view.getId() == R.id.button_7) {
+            listener.setResult(text + "7");
+        } else if(view.getId() == R.id.button_8) {
+            listener.setResult(text + "8");
         } else if(view.getId() == R.id.button_9) {
-            listener.setResult("9");
+            listener.setResult(text + "9");
         }
     }
 
@@ -114,55 +131,58 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.buttonAddition).setOnClickListener(this);
         view.findViewById(R.id.buttonSubtraction).setOnClickListener(this);
         view.findViewById(R.id.buttonEquality).setOnClickListener(this);
-        view.findViewById(R.id.buttonEquality).setOnClickListener(this);
+        view.findViewById(R.id.buttonDot).setOnClickListener(this);
     }
 
     protected void setTypeOperation(int type) {
         value = Float.parseFloat(listener.getResult());
-        listener.setResult("");
+        listener.setResult("0");
         flagDot = false;
+        flagMinus = false;
         typeOperation = type;
     }
 
     protected void doOperation() {
 
         String text = listener.getResult();
-        if(typeOperation == 0) {
+        if (typeOperation == 0) {
             return;
-        }else if(typeOperation == 1) {
+        } else if (typeOperation == 1) {
             value += Float.parseFloat(text);
-        }else if(typeOperation == 2) {
+        } else if (typeOperation == 2) {
             value -= Float.parseFloat(text);
-        }else if(typeOperation == 3) {
+        } else if (typeOperation == 3) {
             value *= Float.parseFloat(text);
-        }else if(typeOperation == 4) {
+        } else if (typeOperation == 4) {
             value /= Float.parseFloat(text);
         }
-        if(value % 1 == 0) {
+        flagMinus = value < 0;
+        checkForDot();
+    }
+
+    protected void checkForDot() {
+        if (value % 1 == 0) {
             listener.setResult(Integer.toString((int) value));
             flagDot = false;
-        }else{
+        } else {
             listener.setResult(Float.toString(value));
             flagDot = true;
         }
-
     }
 
-    protected void setFlagDot() {
+    protected void setDot() {
         if(!flagDot) {
-            if(listener.getResult().isEmpty()) {
-                listener.setResult("0.");
-            }else {
-               listener.setResult(".");
-            }
+            listener.setResult(listener.getResult() + ".");
             flagDot = true;
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putFloat("value", value);
-        outState.putInt("typeOperation", typeOperation);
-        outState.putBoolean("flag", flagDot);
+    protected void setMinusPlus() {
+        if (flagMinus) {
+            listener.setResult(listener.getResult().replaceFirst("-", ""));
+        } else {
+            listener.setResult("-" + listener.getResult());
+        }
+        flagMinus = !flagMinus;
     }
 }
