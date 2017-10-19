@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 public class NumPanelFragment extends Fragment implements View.OnClickListener {
 
-    private float value = 0;
+    private double value = 0;
     private int typeOperation = 0;
     private boolean flagDot = false;
     private boolean flagMinus = false;
@@ -39,7 +39,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            value = savedInstanceState.getFloat("value");
+            value = savedInstanceState.getDouble("value");
             typeOperation = savedInstanceState.getInt("typeOperation");
             flagDot = savedInstanceState.getBoolean("flagDot");
             flagMinus = savedInstanceState.getBoolean("flagMinus");
@@ -49,7 +49,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putFloat("value", value);
+        outState.putDouble("value", value);
         outState.putInt("typeOperation", typeOperation);
         outState.putBoolean("flagDot", flagDot);
         outState.putBoolean("flagMinus", flagMinus);
@@ -70,6 +70,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         }
         if (view.getId() == R.id.buttonAC) {
             listener.setResult("0");
+            value = 0;
             flagMinus = false;
             flagDot = false;
         } else if (view.getId() == R.id.buttonPlusMinus) {
@@ -162,10 +163,10 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
 
     protected void checkForDot() {
         if (value % 1 == 0) {
-            listener.setResult(Integer.toString((int) value));
+            listener.setResult(Long.toString((long) value));
             flagDot = false;
         } else {
-            listener.setResult(Float.toString(value));
+            listener.setResult(Double.toString(value));
             flagDot = true;
         }
     }

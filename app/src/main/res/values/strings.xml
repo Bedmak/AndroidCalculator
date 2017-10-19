@@ -21,6 +21,8 @@
     <string name="button_quality">=</string>
     <string name="text_view">0</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="button_rand">Rand</string>
+    <string name="button_pi">π</string>
+    <string name="button_e">e</string>
 </resources>

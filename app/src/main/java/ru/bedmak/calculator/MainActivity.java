@@ -3,6 +3,7 @@ package ru.bedmak.calculator;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -16,9 +17,16 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
             setResult(savedInstanceState.getString("onScreen"));
         } else {
             NumPanelFragment numPanel = new NumPanelFragment();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.NumPanel, numPanel);
-            ft.commit();
+            FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+            ft1.replace(R.id.NumPanel, numPanel);
+            ft1.commit();
+        }
+        View addPanel = findViewById(R.id.AdditionalPanel);
+        if(addPanel != null) {
+            AdditionalPanelFragment additionalPanel = new AdditionalPanelFragment();
+            FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
+            ft2.replace(R.id.AdditionalPanel, additionalPanel);
+            ft2.commit();
         }
     }
 
