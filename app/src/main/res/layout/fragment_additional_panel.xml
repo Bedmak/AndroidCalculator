@@ -126,9 +126,12 @@
         android:layout_weight="1">
 
         <Button
+            android:id="@+id/buttonFact"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="x!"
+            android:textSize="24sp" />
 
         <Button
             android:layout_width="0dp"
@@ -146,12 +149,13 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/eButton"
+            android:id="@+id/buttonE"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/button_e"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:textSize="24sp"/>
 
         <Button
             android:layout_width="0dp"
@@ -187,18 +191,19 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/piButton"
+            android:id="@+id/buttonPi"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/button_pi"/>
+            android:text="@string/button_pi"
+            android:textSize="24sp"/>
 
         <Button
-            android:id="@+id/randButton"
+            android:id="@+id/buttonRand"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/button_rand"/>
+            android:text="@string/button_rand" />
 
     </LinearLayout>
 

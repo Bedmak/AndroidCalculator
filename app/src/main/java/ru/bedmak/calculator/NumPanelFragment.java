@@ -76,7 +76,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         } else if (view.getId() == R.id.buttonPlusMinus) {
             setMinusPlus();
         } else if (view.getId() == R.id.buttonPercent) {
-            value = Float.parseFloat(listener.getResult()) / 100;
+            value = Double.parseDouble(listener.getResult()) / 100;
             checkForDot();
         } else if (view.getId() == R.id.buttonAddition) {
             setTypeOperation(1);
@@ -136,7 +136,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
     }
 
     protected void setTypeOperation(int type) {
-        value = Float.parseFloat(listener.getResult());
+        value = Double.parseDouble(listener.getResult());
         listener.setResult("0");
         flagDot = false;
         flagMinus = false;
@@ -149,13 +149,17 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         if (typeOperation == 0) {
             return;
         } else if (typeOperation == 1) {
-            value += Float.parseFloat(text);
+            value += Double.parseDouble(text);
         } else if (typeOperation == 2) {
-            value -= Float.parseFloat(text);
+            value -= Double.parseDouble(text);
         } else if (typeOperation == 3) {
-            value *= Float.parseFloat(text);
+            value *= Double.parseDouble(text);
         } else if (typeOperation == 4) {
-            value /= Float.parseFloat(text);
+            if (text.equals("0")) {
+                listener.setResult("Error");
+                return;
+            }
+            value /= Double.parseDouble(text);
         }
         flagMinus = value < 0;
         checkForDot();

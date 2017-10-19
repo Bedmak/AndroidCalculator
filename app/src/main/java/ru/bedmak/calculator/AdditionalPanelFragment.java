@@ -48,19 +48,22 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.randButton) {
+        if (view.getId() == R.id.buttonRand) {
             listener.setResult(getRandomNumber());
-        } else if (view.getId() == R.id.piButton) {
+        } else if (view.getId() == R.id.buttonPi) {
             listener.setResult(getPiNumber());
-        } else if (view.getId() == R.id.eButton) {
+        } else if (view.getId() == R.id.buttonE) {
             listener.setResult(getENumber());
+        } else if (view.getId() == R.id.buttonFact) {
+            listener.setResult(Integer.toString(getFactorial(Integer.parseInt(listener.getResult()))));
         }
     }
 
     protected void initAdditionalButtons(View view) {
-        view.findViewById(R.id.eButton).setOnClickListener(this);
-        view.findViewById(R.id.piButton).setOnClickListener(this);
-        view.findViewById(R.id.randButton).setOnClickListener(this);
+        view.findViewById(R.id.buttonRand).setOnClickListener(this);
+        view.findViewById(R.id.buttonPi).setOnClickListener(this);
+        view.findViewById(R.id.buttonE).setOnClickListener(this);
+        view.findViewById(R.id.buttonFact).setOnClickListener(this);
     }
 
     protected String getRandomNumber() {
@@ -74,4 +77,13 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
     protected String getENumber() {
         return Double.toString(Math.E);
     }
+
+    protected int getFactorial(int x) {
+        if (x == 1) {
+            return 1;
+        } else {
+            return x * getFactorial(x - 1);
+        }
+    }
+
 }

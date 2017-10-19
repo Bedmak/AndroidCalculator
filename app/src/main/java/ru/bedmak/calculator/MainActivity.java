@@ -9,10 +9,13 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements MainViewListener {
 
+    private TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = findViewById(R.id.textView);
         if (savedInstanceState != null) {
             setResult(savedInstanceState.getString("onScreen"));
         } else {
@@ -38,11 +41,11 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
 
     @Override
     public void setResult(String s) {
-        ((TextView) findViewById(R.id.textView)).setText(s);
+        textView.setText(s);
     }
 
     @Override
     public String getResult() {
-        return ((TextView) findViewById(R.id.textView)).getText().toString();
+        return textView.getText().toString();
     }
 }
