@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.Random;
 
@@ -15,6 +16,7 @@ import java.util.Random;
 public class AdditionalPanelFragment extends Fragment implements View.OnClickListener {
 
     private MainViewListener listener;
+    private boolean flagRadDeg = false;
     private final Random random = new Random();
 
     @Override
@@ -56,6 +58,20 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
             listener.setResult(getENumber());
         } else if (view.getId() == R.id.buttonFact) {
             listener.setResult(Integer.toString(getFactorial(Integer.parseInt(listener.getResult()))));
+        } else if (view.getId() == R.id.buttonSin) {
+            listener.setResult(getSin());
+        } else if (view.getId() == R.id.buttonSinh) {
+            listener.setResult(getSinh());
+        } else if (view.getId() == R.id.buttonCos) {
+            listener.setResult(getCos());
+        } else if (view.getId() == R.id.buttonCosh) {
+            listener.setResult(getCosh());
+        } else if (view.getId() == R.id.buttonTan) {
+            listener.setResult(getTan());
+        } else if (view.getId() == R.id.buttonTanh) {
+            listener.setResult(getTanh());
+        } else if (view.getId() == R.id.buttonRadDeg) {
+            changeRadForDeg(view);
         }
     }
 
@@ -64,6 +80,13 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         view.findViewById(R.id.buttonPi).setOnClickListener(this);
         view.findViewById(R.id.buttonE).setOnClickListener(this);
         view.findViewById(R.id.buttonFact).setOnClickListener(this);
+        view.findViewById(R.id.buttonSin).setOnClickListener(this);
+        view.findViewById(R.id.buttonSinh).setOnClickListener(this);
+        view.findViewById(R.id.buttonCos).setOnClickListener(this);
+        view.findViewById(R.id.buttonCosh).setOnClickListener(this);
+        view.findViewById(R.id.buttonTan).setOnClickListener(this);
+        view.findViewById(R.id.buttonTanh).setOnClickListener(this);
+        view.findViewById(R.id.buttonRadDeg).setOnClickListener(this);
     }
 
     protected String getRandomNumber() {
@@ -84,6 +107,46 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         } else {
             return x * getFactorial(x - 1);
         }
+    }
+
+    protected String getSin() {
+        if (flagRadDeg) {
+            return Double.toString(Math.sin(Double.parseDouble(listener.getResult())));
+        } else {
+            return Double.toString(Math.sin(Math.toRadians(Double.parseDouble(listener.getResult()))));
+        }
+    }
+
+    protected String getCos() {
+        if (flagRadDeg) {
+            return Double.toString(Math.cos(Double.parseDouble(listener.getResult())));
+        } else {
+            return Double.toString(Math.cos(Math.toRadians(Double.parseDouble(listener.getResult()))));
+        }
+    }
+
+    protected String getTan() {
+        if (flagRadDeg) {
+            return Double.toString(Math.tan(Double.parseDouble(listener.getResult())));
+        } else {
+            return Double.toString(Math.cos(Math.toRadians(Double.parseDouble(listener.getResult()))));
+        }
+    }
+
+    protected String getSinh() { return Double.toString(Math.sinh(Double.parseDouble(listener.getResult()))); }
+
+    protected String getCosh() { return Double.toString(Math.cosh(Double.parseDouble(listener.getResult()))); }
+
+    protected String getTanh() { return Double.toString(Math.tanh(Double.parseDouble(listener.getResult()))); }
+
+    protected void changeRadForDeg(View view) {
+        Button RadDegButton =  view.findViewById(R.id.buttonRadDeg);
+        if (flagRadDeg) {
+            RadDegButton.setText(R.string.button_rad);
+        } else {
+            RadDegButton.setText(R.string.button_deg);
+        }
+        flagRadDeg = !flagRadDeg;
     }
 
 }

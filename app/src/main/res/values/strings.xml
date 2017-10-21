@@ -25,4 +25,12 @@
     <string name="button_rand">Rand</string>
     <string name="button_pi">π</string>
     <string name="button_e">e</string>
+    <string name="button_tanh">tanh</string>
+    <string name="button_cosh">cosh</string>
+    <string name="button_sinh">sinh</string>
+    <string name="button_sin">sin</string>
+    <string name="button_cos">cos</string>
+    <string name="button_tan">tan</string>
+    <string name="button_rad">Rad</string>
+    <string name="button_deg">Deg</string>
 </resources>
