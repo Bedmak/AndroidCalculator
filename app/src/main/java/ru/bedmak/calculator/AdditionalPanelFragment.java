@@ -39,6 +39,13 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null)  {
+            flagRadDeg = savedInstanceState.getBoolean("flagRadDeg");
+            System.out.println(flagRadDeg);
+            if (flagRadDeg) {
+                ((Button) view.findViewById(R.id.buttonRadDeg)).setText(R.string.button_deg);
+            }
+        }
         initAdditionalButtons(view);
     }
 
@@ -46,6 +53,12 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("flagRadDeg", flagRadDeg);
     }
 
     @Override
@@ -141,6 +154,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
 
     protected void changeRadForDeg(View view) {
         Button RadDegButton =  view.findViewById(R.id.buttonRadDeg);
+        System.out.println(flagRadDeg);
         if (flagRadDeg) {
             RadDegButton.setText(R.string.button_rad);
         } else {

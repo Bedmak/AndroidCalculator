@@ -1,5 +1,6 @@
 package ru.bedmak.calculator;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
             ft1.commit();
         }
         View addPanel = findViewById(R.id.AdditionalPanel);
-        if(addPanel != null) {
+        if(addPanel != null && getSupportFragmentManager().findFragmentById(R.id.AdditionalPanel) == null) {
             AdditionalPanelFragment additionalPanel = new AdditionalPanelFragment();
             FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
             ft2.replace(R.id.AdditionalPanel, additionalPanel);
