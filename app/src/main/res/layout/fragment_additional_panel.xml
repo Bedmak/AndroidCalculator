@@ -117,9 +117,13 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/buttonLog"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_log"
+            android:textSize="24sp"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 

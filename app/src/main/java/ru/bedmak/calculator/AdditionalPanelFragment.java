@@ -86,6 +86,8 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
             changeRadForDeg(view);
         } else if (view.getId() == R.id.buttonLn) {
             listener.setResult(getLn());
+        } else if (view.getId() == R.id.buttonLog){
+            listener.setResult(getLog());
         }
     }
 
@@ -102,6 +104,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         view.findViewById(R.id.buttonTanh).setOnClickListener(this);
         view.findViewById(R.id.buttonRadDeg).setOnClickListener(this);
         view.findViewById(R.id.buttonLn).setOnClickListener(this);
+        view.findViewById(R.id.buttonLog).setOnClickListener(this);
     }
 
     protected String getRandomNumber() {
@@ -166,4 +169,5 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
 
     protected String getLn() { return Double.toString(Math.log(Double.parseDouble(listener.getResult()))); }
 
+    protected String getLog() { return  Double.toString(Math.log10(Double.parseDouble(listener.getResult())));}
 }

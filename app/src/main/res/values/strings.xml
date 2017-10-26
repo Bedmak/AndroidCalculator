@@ -34,4 +34,5 @@
     <string name="button_rad">Rad</string>
     <string name="button_deg">Deg</string>
     <string name="button_ln">ln</string>
+    <string name="button_log">log</string>
 </resources>
