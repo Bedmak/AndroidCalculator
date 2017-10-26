@@ -41,7 +41,6 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null)  {
             flagRadDeg = savedInstanceState.getBoolean("flagRadDeg");
-            System.out.println(flagRadDeg);
             if (flagRadDeg) {
                 ((Button) view.findViewById(R.id.buttonRadDeg)).setText(R.string.button_deg);
             }
@@ -85,6 +84,8 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
             listener.setResult(getTanh());
         } else if (view.getId() == R.id.buttonRadDeg) {
             changeRadForDeg(view);
+        } else if (view.getId() == R.id.buttonLn) {
+            listener.setResult(getLn());
         }
     }
 
@@ -100,6 +101,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         view.findViewById(R.id.buttonTan).setOnClickListener(this);
         view.findViewById(R.id.buttonTanh).setOnClickListener(this);
         view.findViewById(R.id.buttonRadDeg).setOnClickListener(this);
+        view.findViewById(R.id.buttonLn).setOnClickListener(this);
     }
 
     protected String getRandomNumber() {
@@ -154,7 +156,6 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
 
     protected void changeRadForDeg(View view) {
         Button RadDegButton =  view.findViewById(R.id.buttonRadDeg);
-        System.out.println(flagRadDeg);
         if (flagRadDeg) {
             RadDegButton.setText(R.string.button_rad);
         } else {
@@ -162,5 +163,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         }
         flagRadDeg = !flagRadDeg;
     }
+
+    protected String getLn() { return Double.toString(Math.log(Double.parseDouble(listener.getResult()))); }
 
 }

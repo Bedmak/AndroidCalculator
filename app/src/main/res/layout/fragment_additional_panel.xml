@@ -108,9 +108,13 @@
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/buttonLn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_ln"
+            android:textSize="24sp"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="0dp"
@@ -131,7 +135,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="x!"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/buttonSin"
@@ -224,6 +229,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/button_pi"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <Button
