@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.bedmak.calculator.AdditionalPanelFragment"
+    tools:context="ru.bedmak.calculator.ui.AdditionalPanelFragment"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,33 +14,50 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_left_bracket"
+            android:textSize="24sp"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_right_bracket"
+            android:textSize="24sp"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_mc"
+            android:textSize="24sp"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_mplus"
+            android:textSize="24sp"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_mminus"
+            android:textSize="24sp"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
-
+            android:layout_weight="1"
+            android:text="@string/button_mr"
+            android:textSize="24sp"
+            android:textAllCaps="false" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,16 +72,19 @@
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/button_2nd_degree"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
         <Button
+            android:id="@+id/button_3nd_degree"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/button_ynd_degree"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -95,7 +115,8 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_2nd_root"/>
 
         <Button
             android:layout_width="0dp"
@@ -138,9 +159,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="x!"
-            android:textSize="24sp"
-            android:textAllCaps="false" />
+            android:text="@string/button_x_fact"
+            android:textAllCaps="false"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/buttonSin"
@@ -181,7 +202,9 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/button_ee"
+            android:textSize="24sp" />
 
     </LinearLayout>
 

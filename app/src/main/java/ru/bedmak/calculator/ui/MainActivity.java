@@ -1,11 +1,13 @@
-package ru.bedmak.calculator;
+package ru.bedmak.calculator.ui;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import ru.bedmak.calculator.MainViewListener;
+import ru.bedmak.calculator.R;
 
 
 public class MainActivity extends AppCompatActivity implements MainViewListener {

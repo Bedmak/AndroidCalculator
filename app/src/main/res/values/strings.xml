@@ -35,4 +35,13 @@
     <string name="button_deg">Deg</string>
     <string name="button_ln">ln</string>
     <string name="button_log">log</string>
+    <string name="button_x_fact">x!</string>
+    <string name="button_2nd_root">\u221Ax</string>
+    <string name="button_ee">EE</string>
+    <string name="button_left_bracket">(</string>
+    <string name="button_right_bracket">)</string>
+    <string name="button_mc">mc</string>
+    <string name="button_mplus">m+</string>
+    <string name="button_mminus">m-</string>
+    <string name="button_mr">mr</string>
 </resources>

@@ -1,32 +1,37 @@
-package ru.bedmak.calculator;
+package ru.bedmak.calculator.ui;
 
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.util.Random;
+import ru.bedmak.calculator.MainViewListener;
+import ru.bedmak.calculator.Operations;
+import ru.bedmak.calculator.R;
 
 
 public class AdditionalPanelFragment extends Fragment implements View.OnClickListener {
 
     private MainViewListener listener;
+    private Operations operations;
     private boolean flagRadDeg = false;
-    private final Random random = new Random();
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if(!(getActivity() instanceof  MainViewListener)) {
+        if (!(getActivity() instanceof  MainViewListener)) {
             throw new AssertionError("MainActivity must implement MainViewListener");
         }
         listener = (MainViewListener) getActivity();
+        operations = new Operations();
     }
 
     @Override
@@ -63,31 +68,37 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.buttonRand) {
-            listener.setResult(getRandomNumber());
+            listener.setResult(operations.getRandomNumber());
         } else if (view.getId() == R.id.buttonPi) {
-            listener.setResult(getPiNumber());
+            listener.setResult(operations.getPiNumber());
         } else if (view.getId() == R.id.buttonE) {
-            listener.setResult(getENumber());
+            listener.setResult(operations.getENumber());
         } else if (view.getId() == R.id.buttonFact) {
-            listener.setResult(Integer.toString(getFactorial(Integer.parseInt(listener.getResult()))));
+            listener.setResult(Integer.toString(operations.getFactorial(Integer.parseInt(listener.getResult()))));
         } else if (view.getId() == R.id.buttonSin) {
-            listener.setResult(getSin());
+            listener.setResult(operations.getSin(listener.getResult(), flagRadDeg));
         } else if (view.getId() == R.id.buttonSinh) {
-            listener.setResult(getSinh());
+            listener.setResult(operations.getSinh(listener.getResult()));
         } else if (view.getId() == R.id.buttonCos) {
-            listener.setResult(getCos());
+            listener.setResult(operations.getCos(listener.getResult(), flagRadDeg));
         } else if (view.getId() == R.id.buttonCosh) {
-            listener.setResult(getCosh());
+            listener.setResult(operations.getCosh(listener.getResult()));
         } else if (view.getId() == R.id.buttonTan) {
-            listener.setResult(getTan());
+            listener.setResult(operations.getTan(listener.getResult(), flagRadDeg));
         } else if (view.getId() == R.id.buttonTanh) {
-            listener.setResult(getTanh());
+            listener.setResult(operations.getTanh(listener.getResult()));
         } else if (view.getId() == R.id.buttonRadDeg) {
             changeRadForDeg(view);
         } else if (view.getId() == R.id.buttonLn) {
-            listener.setResult(getLn());
+            listener.setResult(operations.getLn(listener.getResult()));
         } else if (view.getId() == R.id.buttonLog){
-            listener.setResult(getLog());
+            listener.setResult(operations.getLog(listener.getResult()));
+        } else if (view.getId() == R.id.button_2nd_degree) {
+            listener.setResult(operations.get2ndDegree(listener.getResult()));
+        } else if (view.getId() == R.id.button_3nd_degree) {
+            listener.setResult(operations.get3ndDegree(listener.getResult()));
+        } else if (view.getId() == R.id.button_ynd_degree) {
+            listener.setResult(operations.getYndDegree(listener.getResult()));
         }
     }
 
@@ -105,57 +116,30 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         view.findViewById(R.id.buttonRadDeg).setOnClickListener(this);
         view.findViewById(R.id.buttonLn).setOnClickListener(this);
         view.findViewById(R.id.buttonLog).setOnClickListener(this);
+        initButton(view, R.id.button_2nd_degree, "x<sup>2</sup>");
+        initButton(view, R.id.button_3nd_degree, "x<sup>3</sup>");
+        initButton(view, R.id.button_ynd_degree, "x<sup>y</sup>");
+
     }
 
-    protected String getRandomNumber() {
-        return Double.toString(random.nextDouble());
+    protected void initButton(View view, int id, String html) {
+
+        Button button = view.findViewById(id);
+        button.setOnClickListener(this);
+        button.setText(fromHtml(html));
+
     }
 
-    protected String getPiNumber() {
-        return Double.toString(Math.PI);
-    }
-
-    protected String getENumber() {
-        return Double.toString(Math.E);
-    }
-
-    protected int getFactorial(int x) {
-        if (x == 1) {
-            return 1;
+    @SuppressWarnings("deprecation")
+    protected static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
-            return x * getFactorial(x - 1);
+            result = Html.fromHtml(html);
         }
+        return result;
     }
-
-    protected String getSin() {
-        if (flagRadDeg) {
-            return Double.toString(Math.sin(Double.parseDouble(listener.getResult())));
-        } else {
-            return Double.toString(Math.sin(Math.toRadians(Double.parseDouble(listener.getResult()))));
-        }
-    }
-
-    protected String getCos() {
-        if (flagRadDeg) {
-            return Double.toString(Math.cos(Double.parseDouble(listener.getResult())));
-        } else {
-            return Double.toString(Math.cos(Math.toRadians(Double.parseDouble(listener.getResult()))));
-        }
-    }
-
-    protected String getTan() {
-        if (flagRadDeg) {
-            return Double.toString(Math.tan(Double.parseDouble(listener.getResult())));
-        } else {
-            return Double.toString(Math.cos(Math.toRadians(Double.parseDouble(listener.getResult()))));
-        }
-    }
-
-    protected String getSinh() { return Double.toString(Math.sinh(Double.parseDouble(listener.getResult()))); }
-
-    protected String getCosh() { return Double.toString(Math.cosh(Double.parseDouble(listener.getResult()))); }
-
-    protected String getTanh() { return Double.toString(Math.tanh(Double.parseDouble(listener.getResult()))); }
 
     protected void changeRadForDeg(View view) {
         Button RadDegButton =  view.findViewById(R.id.buttonRadDeg);
@@ -167,7 +151,4 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         flagRadDeg = !flagRadDeg;
     }
 
-    protected String getLn() { return Double.toString(Math.log(Double.parseDouble(listener.getResult()))); }
-
-    protected String getLog() { return  Double.toString(Math.log10(Double.parseDouble(listener.getResult())));}
 }

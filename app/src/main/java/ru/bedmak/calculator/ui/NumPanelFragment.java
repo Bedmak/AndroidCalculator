@@ -1,4 +1,4 @@
-package ru.bedmak.calculator;
+package ru.bedmak.calculator.ui;
 
 
 import android.content.Context;
@@ -8,6 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import ru.bedmak.calculator.MainViewListener;
+import ru.bedmak.calculator.R;
 
 
 public class NumPanelFragment extends Fragment implements View.OnClickListener {
