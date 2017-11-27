@@ -140,6 +140,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
 
     protected void setTypeOperation(int type) {
         value = Double.parseDouble(listener.getResult());
+        listener.setSmallResult(listener.getResult());
         listener.setResult("0");
         flagDot = false;
         flagMinus = false;
@@ -165,17 +166,18 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
             value /= Double.parseDouble(text);
         }
         flagMinus = value < 0;
-        checkForDot();
+        listener.setResult(Double.toString(checkForDot()));
+        listener.setSmallResult("");
     }
 
-    protected void checkForDot() {
+    protected Double checkForDot() {
         if (value % 1 == 0) {
-            listener.setResult(Long.toString((long) value));
+            value = (long) value;
             flagDot = false;
         } else {
-            listener.setResult(Double.toString(value));
             flagDot = true;
         }
+        return value;
     }
 
     protected void setDot() {
