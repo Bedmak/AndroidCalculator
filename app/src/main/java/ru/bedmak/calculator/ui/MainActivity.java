@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import ru.bedmak.calculator.MainViewListener;
+import ru.bedmak.calculator.Operations;
 import ru.bedmak.calculator.R;
 
 
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
 
     private TextView textView;
     private TextView textViewSmall;
+    private Operations operations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.textView);
         textViewSmall = findViewById(R.id.textViewSmall);
+        operations = new Operations();
         if (savedInstanceState != null) {
             setResult(savedInstanceState.getString("onScreen"));
             setSmallResult(savedInstanceState.getString("onSmallScreen"));
@@ -61,4 +64,9 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
 
     @Override
     public String getSmallResult() { return textViewSmall.getText().toString(); }
+
+    @Override
+    public Operations getOperations() {
+        return operations;
+    }
 }

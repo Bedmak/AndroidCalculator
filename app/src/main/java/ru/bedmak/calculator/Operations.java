@@ -5,7 +5,50 @@ import java.util.Random;
 
 public class Operations {
 
+
+    private int typeOperation = 0;
+    private boolean flagDot = false;
+    private boolean flagMinus = false;
+
+
     private final Random random = new Random();
+
+    public String doOperation(String textValue, String smallTextValue) {
+
+        int typeOperation = getTypeOperation();
+        double value = Double.parseDouble(smallTextValue);
+
+        if (typeOperation == 0) {
+            return "";
+        } else if (typeOperation == 1) {
+            value += Double.parseDouble(textValue);
+        } else if (typeOperation == 2) {
+            value -= Double.parseDouble(textValue);
+        } else if (typeOperation == 3) {
+            value *= Double.parseDouble(textValue);
+        } else if (typeOperation == 4) {
+            if (textValue.equals("0")) {
+                return "Error";
+            }
+            value /= Double.parseDouble(textValue);
+        } else if (typeOperation == 5) {
+            value = getYndDegree(smallTextValue, textValue);
+        }
+        flagMinus = value < 0;
+        return checkForDot(value);
+    }
+
+    private String checkForDot(double value) {
+        if (value % 1 == 0) {
+            flagDot = false;
+            return Long.toString((long) value);
+        } else {
+            flagDot = true;
+            return Double.toString(value);
+        }
+    }
+
+    public String getPercents(double value) { return checkForDot(value / 100); }
 
     public String getRandomNumber() {
         return Double.toString(random.nextDouble());
@@ -71,9 +114,48 @@ public class Operations {
         return  Double.toString(Math.pow(Double.parseDouble(value), 3));
     }
 
-    public String getYndDegree(String value) {
-        return  "null";
+    public Double getYndDegree(String value, String y) {
+        return Math.pow(Double.parseDouble(value), Integer.parseInt(y));
     }
+
+    public String setDot(String text) {
+        if(!flagDot) {
+            flagDot = true;
+            return text + ".";
+        }
+        return "";
+    }
+
+    public void setTypeOperation(int type) {
+        typeOperation = type;
+        flagDot = false;
+        flagMinus = false;
+    }
+
+    public int getTypeOperation() {
+        return typeOperation;
+    }
+
+    public void setFlagDot(boolean flag) {
+        flagDot = flag;
+    }
+
+    public void setFlagMinus(boolean flag) {
+        flagMinus = flag;
+    }
+
+    public String setMinusPlus(String text) {
+        if (flagMinus) {
+            flagMinus = false;
+            return text.replaceFirst("-", "");
+        } else {
+            flagMinus = true;
+            return "-" + text;
+        }
+
+    }
+
+
 
 
 }

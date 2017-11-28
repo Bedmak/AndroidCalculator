@@ -31,7 +31,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
             throw new AssertionError("MainActivity must implement MainViewListener");
         }
         listener = (MainViewListener) getActivity();
-        operations = new Operations();
+        operations = listener.getOperations();
     }
 
     @Override
@@ -98,7 +98,9 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         } else if (view.getId() == R.id.button_3nd_degree) {
             listener.setResult(operations.get3ndDegree(listener.getResult()));
         } else if (view.getId() == R.id.button_ynd_degree) {
-            listener.setResult(operations.getYndDegree(listener.getResult()));
+            listener.setSmallResult(listener.getResult());
+            listener.setResult("0");
+            operations.setTypeOperation(5);
         }
     }
 

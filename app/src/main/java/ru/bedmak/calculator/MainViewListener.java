@@ -8,4 +8,6 @@ public interface MainViewListener {
 
     void setSmallResult(String text);
     String getSmallResult();
+
+    Operations getOperations();
 }

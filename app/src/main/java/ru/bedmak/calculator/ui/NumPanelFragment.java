@@ -10,16 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ru.bedmak.calculator.MainViewListener;
+import ru.bedmak.calculator.Operations;
 import ru.bedmak.calculator.R;
 
 
 public class NumPanelFragment extends Fragment implements View.OnClickListener {
 
-    private double value = 0;
-    private int typeOperation = 0;
-    private boolean flagDot = false;
-    private boolean flagMinus = false;
     private MainViewListener listener;
+    private Operations operations;
 
     @Override
     public void onAttach(Context context) {
@@ -41,21 +39,8 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            value = savedInstanceState.getDouble("value");
-            typeOperation = savedInstanceState.getInt("typeOperation");
-            flagDot = savedInstanceState.getBoolean("flagDot");
-            flagMinus = savedInstanceState.getBoolean("flagMinus");
-        }
         initButtons(view);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putDouble("value", value);
-        outState.putInt("typeOperation", typeOperation);
-        outState.putBoolean("flagDot", flagDot);
-        outState.putBoolean("flagMinus", flagMinus);
+        operations = listener.getOperations();
     }
 
     @Override
@@ -73,26 +58,25 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         }
         if (view.getId() == R.id.buttonAC) {
             listener.setResult("0");
-            value = 0;
-            flagMinus = false;
-            flagDot = false;
+            listener.setSmallResult("");
+            operations.setFlagMinus(false);
+            operations.setFlagDot(false);
         } else if (view.getId() == R.id.buttonPlusMinus) {
-            setMinusPlus();
+            listener.setResult(operations.setMinusPlus(listener.getResult()));
         } else if (view.getId() == R.id.buttonPercent) {
-            value = Double.parseDouble(listener.getResult()) / 100;
-            checkForDot();
+            listener.setResult(operations.getPercents(Double.parseDouble(listener.getResult())));
         } else if (view.getId() == R.id.buttonAddition) {
-            setTypeOperation(1);
+            setOperation(1);
         } else if (view.getId() == R.id.buttonSubtraction) {
-            setTypeOperation(2);
+            setOperation(2);
         } else if (view.getId() == R.id.buttonMultiplication) {
-            setTypeOperation(3);
+            setOperation(3);
         } else if (view.getId() == R.id.buttonDivision) {
-            setTypeOperation(4);
+            setOperation(4);
         } else if (view.getId() == R.id.buttonEquality) {
-            doOperation();
+            displayResult();
         } else if(view.getId() == R.id.buttonDot) {
-            setDot();
+            listener.setResult(operations.setDot(listener.getResult()));
         } else if(view.getId() == R.id.button_0) {
             listener.setResult(text + "0");
         } else if(view.getId() == R.id.button_1) {
@@ -116,7 +100,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    protected void initButtons(View view) {
+    private void initButtons(View view) {
         view.findViewById(R.id.button_0).setOnClickListener(this);
         view.findViewById(R.id.button_1).setOnClickListener(this);
         view.findViewById(R.id.button_2).setOnClickListener(this);
@@ -138,61 +122,16 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.buttonDot).setOnClickListener(this);
     }
 
-    protected void setTypeOperation(int type) {
-        value = Double.parseDouble(listener.getResult());
+    private void setOperation(int type) {
         listener.setSmallResult(listener.getResult());
         listener.setResult("0");
-        flagDot = false;
-        flagMinus = false;
-        typeOperation = type;
+        operations.setTypeOperation(type);
     }
 
-    protected void doOperation() {
-
-        String text = listener.getResult();
-        if (typeOperation == 0) {
-            return;
-        } else if (typeOperation == 1) {
-            value += Double.parseDouble(text);
-        } else if (typeOperation == 2) {
-            value -= Double.parseDouble(text);
-        } else if (typeOperation == 3) {
-            value *= Double.parseDouble(text);
-        } else if (typeOperation == 4) {
-            if (text.equals("0")) {
-                listener.setResult("Error");
-                return;
-            }
-            value /= Double.parseDouble(text);
-        }
-        flagMinus = value < 0;
-        listener.setResult(Double.toString(checkForDot()));
+    private void displayResult() {
+        listener.setResult(operations.doOperation(listener.getResult(), listener.getSmallResult()));
         listener.setSmallResult("");
     }
 
-    protected Double checkForDot() {
-        if (value % 1 == 0) {
-            value = (long) value;
-            flagDot = false;
-        } else {
-            flagDot = true;
-        }
-        return value;
-    }
 
-    protected void setDot() {
-        if(!flagDot) {
-            listener.setResult(listener.getResult() + ".");
-            flagDot = true;
-        }
-    }
-
-    protected void setMinusPlus() {
-        if (flagMinus) {
-            listener.setResult(listener.getResult().replaceFirst("-", ""));
-        } else {
-            listener.setResult("-" + listener.getResult());
-        }
-        flagMinus = !flagMinus;
-    }
 }
