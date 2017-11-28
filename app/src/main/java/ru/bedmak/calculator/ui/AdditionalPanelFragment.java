@@ -31,7 +31,6 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
             throw new AssertionError("MainActivity must implement MainViewListener");
         }
         listener = (MainViewListener) getActivity();
-        operations = listener.getOperations();
     }
 
     @Override
@@ -51,6 +50,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
             }
         }
         initAdditionalButtons(view);
+        operations = listener.getOperations();
     }
 
     @Override
@@ -100,11 +100,11 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         } else if (view.getId() == R.id.button_ynd_degree) {
             listener.setSmallResult(listener.getResult());
             listener.setResult("0");
-            operations.setTypeOperation(5);
+            operations.setOperation(5);
         }
     }
 
-    protected void initAdditionalButtons(View view) {
+    private void initAdditionalButtons(View view) {
         view.findViewById(R.id.buttonRand).setOnClickListener(this);
         view.findViewById(R.id.buttonPi).setOnClickListener(this);
         view.findViewById(R.id.buttonE).setOnClickListener(this);
@@ -121,19 +121,16 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         initButton(view, R.id.button_2nd_degree, "x<sup>2</sup>");
         initButton(view, R.id.button_3nd_degree, "x<sup>3</sup>");
         initButton(view, R.id.button_ynd_degree, "x<sup>y</sup>");
-
     }
 
-    protected void initButton(View view, int id, String html) {
-
+    private void initButton(View view, int id, String html) {
         Button button = view.findViewById(id);
         button.setOnClickListener(this);
         button.setText(fromHtml(html));
-
     }
 
     @SuppressWarnings("deprecation")
-    protected static Spanned fromHtml(String html){
+    private static Spanned fromHtml(String html){
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
@@ -143,7 +140,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         return result;
     }
 
-    protected void changeRadForDeg(View view) {
+    private void changeRadForDeg(View view) {
         Button RadDegButton =  view.findViewById(R.id.buttonRadDeg);
         if (flagRadDeg) {
             RadDegButton.setText(R.string.button_rad);

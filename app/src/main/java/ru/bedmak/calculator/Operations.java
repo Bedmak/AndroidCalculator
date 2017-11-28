@@ -1,15 +1,12 @@
 package ru.bedmak.calculator;
 
-
 import java.util.Random;
 
 public class Operations {
 
-
     private int typeOperation = 0;
-    private boolean flagDot = false;
-    private boolean flagMinus = false;
-
+    private boolean isDot = false;
+    private boolean isMinus = false;
 
     private final Random random = new Random();
 
@@ -34,18 +31,66 @@ public class Operations {
         } else if (typeOperation == 5) {
             value = getYndDegree(smallTextValue, textValue);
         }
-        flagMinus = value < 0;
+        isMinus = value < 0;
         return checkForDot(value);
     }
 
     private String checkForDot(double value) {
         if (value % 1 == 0) {
-            flagDot = false;
+            isDot = false;
             return Long.toString((long) value);
         } else {
-            flagDot = true;
+            isDot = true;
             return Double.toString(value);
         }
+    }
+
+    public void setOperation(int type) {
+        typeOperation = type;
+        isDot = false;
+        isMinus = false;
+    }
+
+    public void setTypeOperation(int type) {
+        typeOperation = type;
+    }
+
+    public int getTypeOperation() {
+        return typeOperation;
+    }
+
+    public void setMinus(boolean flag) {
+        isMinus = flag;
+    }
+
+    public boolean getMinus() {
+        return isMinus;
+    }
+
+    public String setMinusPlus(String text) {
+        if (getMinus()) {
+            setMinus(false);
+            return text.replaceFirst("-", "");
+        } else {
+            setMinus(true);
+            return "-" + text;
+        }
+    }
+
+    public void setDot(boolean flag) {
+        isDot = flag;
+    }
+
+    public boolean getDot() {
+        return isDot;
+    }
+
+    public String setDisplayDot(String text) {
+        if(!isDot) {
+            setDot(true);
+            return text + ".";
+        }
+        return text;
     }
 
     public String getPercents(double value) { return checkForDot(value / 100); }
@@ -100,11 +145,9 @@ public class Operations {
 
     public String getTanh(String value) { return Double.toString(Math.tanh(Double.parseDouble(value))); }
 
-
-
     public String getLn(String value) { return Double.toString(Math.log(Double.parseDouble(value))); }
 
-    public String getLog(String value) { return  Double.toString(Math.log10(Double.parseDouble(value)));}
+    public String getLog(String value) { return Double.toString(Math.log10(Double.parseDouble(value))); }
 
     public String get2ndDegree(String value) {
         return  Double.toString(Math.pow(Double.parseDouble(value), 2));
@@ -117,45 +160,4 @@ public class Operations {
     public Double getYndDegree(String value, String y) {
         return Math.pow(Double.parseDouble(value), Integer.parseInt(y));
     }
-
-    public String setDot(String text) {
-        if(!flagDot) {
-            flagDot = true;
-            return text + ".";
-        }
-        return "";
-    }
-
-    public void setTypeOperation(int type) {
-        typeOperation = type;
-        flagDot = false;
-        flagMinus = false;
-    }
-
-    public int getTypeOperation() {
-        return typeOperation;
-    }
-
-    public void setFlagDot(boolean flag) {
-        flagDot = flag;
-    }
-
-    public void setFlagMinus(boolean flag) {
-        flagMinus = flag;
-    }
-
-    public String setMinusPlus(String text) {
-        if (flagMinus) {
-            flagMinus = false;
-            return text.replaceFirst("-", "");
-        } else {
-            flagMinus = true;
-            return "-" + text;
-        }
-
-    }
-
-
-
-
 }

@@ -1,6 +1,5 @@
 package ru.bedmak.calculator.ui;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -59,8 +58,8 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         if (view.getId() == R.id.buttonAC) {
             listener.setResult("0");
             listener.setSmallResult("");
-            operations.setFlagMinus(false);
-            operations.setFlagDot(false);
+            operations.setMinus(false);
+            operations.setDot(false);
         } else if (view.getId() == R.id.buttonPlusMinus) {
             listener.setResult(operations.setMinusPlus(listener.getResult()));
         } else if (view.getId() == R.id.buttonPercent) {
@@ -76,7 +75,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
         } else if (view.getId() == R.id.buttonEquality) {
             displayResult();
         } else if(view.getId() == R.id.buttonDot) {
-            listener.setResult(operations.setDot(listener.getResult()));
+            listener.setResult(operations.setDisplayDot(listener.getResult()));
         } else if(view.getId() == R.id.button_0) {
             listener.setResult(text + "0");
         } else if(view.getId() == R.id.button_1) {
@@ -125,7 +124,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
     private void setOperation(int type) {
         listener.setSmallResult(listener.getResult());
         listener.setResult("0");
-        operations.setTypeOperation(type);
+        operations.setOperation(type);
     }
 
     private void displayResult() {

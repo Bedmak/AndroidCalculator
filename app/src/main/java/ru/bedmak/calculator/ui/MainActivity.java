@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
         if (savedInstanceState != null) {
             setResult(savedInstanceState.getString("onScreen"));
             setSmallResult(savedInstanceState.getString("onSmallScreen"));
+            operations.setTypeOperation(savedInstanceState.getInt("typeOperation"));
+            operations.setDot(savedInstanceState.getBoolean("isDot"));
+            operations.setMinus(savedInstanceState.getBoolean("isMinus"));
         } else {
             NumPanelFragment numPanel = new NumPanelFragment();
             FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
         super.onSaveInstanceState(outState);
         outState.putString("onScreen", getResult());
         outState.putString("onSmallScreen", getSmallResult());
+        outState.putInt("typeOperations", operations.getTypeOperation());
+        outState.putBoolean("isDot", operations.getDot());
+        outState.putBoolean("isMinus", operations.getMinus());
     }
 
     @Override
