@@ -101,6 +101,8 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
             listener.setSmallResult(listener.getResult());
             listener.setResult("0");
             operations.setOperation(5);
+        } else if (view.getId() == R.id.buttonSQRT) {
+            listener.setResult(operations.getSQRT(listener.getResult()));
         }
     }
 
@@ -121,6 +123,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         initButton(view, R.id.button_2nd_degree, "x<sup>2</sup>");
         initButton(view, R.id.button_3nd_degree, "x<sup>3</sup>");
         initButton(view, R.id.button_ynd_degree, "x<sup>y</sup>");
+        view.findViewById(R.id.buttonSQRT).setOnClickListener(this);
     }
 
     private void initButton(View view, int id, String html) {

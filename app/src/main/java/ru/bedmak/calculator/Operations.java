@@ -150,14 +150,18 @@ public class Operations {
     public String getLog(String value) { return Double.toString(Math.log10(Double.parseDouble(value))); }
 
     public String get2ndDegree(String value) {
-        return  Double.toString(Math.pow(Double.parseDouble(value), 2));
+        return  checkForDot(Math.pow(Double.parseDouble(value), 2));
     }
 
     public String get3ndDegree(String value) {
-        return  Double.toString(Math.pow(Double.parseDouble(value), 3));
+        return  checkForDot(Math.pow(Double.parseDouble(value), 3));
     }
 
     public Double getYndDegree(String value, String y) {
         return Math.pow(Double.parseDouble(value), Integer.parseInt(y));
+    }
+
+    public String getSQRT(String value) {
+        return checkForDot(Math.sqrt(Double.parseDouble(value)));
     }
 }
