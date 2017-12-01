@@ -103,6 +103,14 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
             operations.setOperation(5);
         } else if (view.getId() == R.id.buttonSQRT) {
             listener.setResult(operations.getSQRT(listener.getResult()));
+        } else if (view.getId() == R.id.button_memory_clean) {
+            operations.cleanMemory();
+        } else if (view.getId() == R.id.button_memory_sum) {
+            operations.sumMemory(listener.getResult());
+        } else if (view.getId() == R.id.button_memory_sub) {
+            operations.subMemory(listener.getResult());
+        } else if (view.getId() == R.id.button_memory_display) {
+            listener.setResult(operations.displayMemory());
         }
     }
 
@@ -124,6 +132,10 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         initButton(view, R.id.button_3nd_degree, "x<sup>3</sup>");
         initButton(view, R.id.button_ynd_degree, "x<sup>y</sup>");
         view.findViewById(R.id.buttonSQRT).setOnClickListener(this);
+        view.findViewById(R.id.button_memory_clean).setOnClickListener(this);
+        view.findViewById(R.id.button_memory_sum).setOnClickListener(this);
+        view.findViewById(R.id.button_memory_sub).setOnClickListener(this);
+        view.findViewById(R.id.button_memory_display).setOnClickListener(this);
     }
 
     private void initButton(View view, int id, String html) {

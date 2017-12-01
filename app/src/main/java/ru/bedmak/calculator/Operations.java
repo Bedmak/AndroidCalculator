@@ -7,6 +7,7 @@ public class Operations {
     private int typeOperation = 0;
     private boolean isDot = false;
     private boolean isMinus = false;
+    private double memory = 0;
 
     private final Random random = new Random();
 
@@ -163,5 +164,29 @@ public class Operations {
 
     public String getSQRT(String value) {
         return checkForDot(Math.sqrt(Double.parseDouble(value)));
+    }
+
+    public void sumMemory(String value) {
+        memory += Double.parseDouble(value);
+    }
+
+    public void subMemory(String value) {
+        memory -= Double.parseDouble(value);
+    }
+
+    public String displayMemory() {
+        return checkForDot(memory);
+    }
+
+    public void cleanMemory() {
+        memory = 0;
+    }
+
+    public double getMemory() {
+        return memory;
+    }
+
+    public void setMemory(double value) {
+        memory = value;
     }
 }

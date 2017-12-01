@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
             operations.setTypeOperation(savedInstanceState.getInt("typeOperation"));
             operations.setDot(savedInstanceState.getBoolean("isDot"));
             operations.setMinus(savedInstanceState.getBoolean("isMinus"));
+            operations.setMemory(savedInstanceState.getDouble("memory"));
         } else {
             NumPanelFragment numPanel = new NumPanelFragment();
             FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
         outState.putInt("typeOperations", operations.getTypeOperation());
         outState.putBoolean("isDot", operations.getDot());
         outState.putBoolean("isMinus", operations.getMinus());
+        outState.putDouble("memory", operations.getMemory());
     }
 
     @Override
