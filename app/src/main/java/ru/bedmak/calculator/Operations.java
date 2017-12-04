@@ -36,6 +36,28 @@ public class Operations {
         return checkForDot(value);
     }
 
+    public String getOperation(int type) {
+        String operator = "";
+        switch (type) {
+            case 1:
+                operator = "+";
+                break;
+            case 2:
+                operator = "-";
+                break;
+            case 3:
+                operator = "*";
+                break;
+            case 4:
+                operator = "/";
+                break;
+            case 5:
+                operator = "^";
+                break;
+        }
+        return operator;
+    }
+
     private String checkForDot(double value) {
         if (value % 1 == 0) {
             isDot = false;

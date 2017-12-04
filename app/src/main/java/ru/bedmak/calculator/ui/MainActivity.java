@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
     public void setSmallResult(String value) { textViewSmall.setText(value); }
 
     @Override
-    public String getSmallResult() { return textViewSmall.getText().toString(); }
+    public String getSmallResult() { return textViewSmall.getText().toString().split(" ")[0]; }
 
     @Override
     public Operations getOperations() {

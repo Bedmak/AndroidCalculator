@@ -98,7 +98,7 @@ public class AdditionalPanelFragment extends Fragment implements View.OnClickLis
         } else if (view.getId() == R.id.button_3nd_degree) {
             listener.setResult(operations.get3ndDegree(listener.getResult()));
         } else if (view.getId() == R.id.button_ynd_degree) {
-            listener.setSmallResult(listener.getResult());
+            listener.setSmallResult(listener.getResult() + " " + operations.getOperation(5));
             listener.setResult("0");
             operations.setOperation(5);
         } else if (view.getId() == R.id.buttonSQRT) {

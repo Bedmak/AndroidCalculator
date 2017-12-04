@@ -122,7 +122,7 @@ public class NumPanelFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setOperation(int type) {
-        listener.setSmallResult(listener.getResult());
+        listener.setSmallResult(listener.getResult() + " " + operations.getOperation(type));
         listener.setResult("0");
         operations.setOperation(type);
     }
