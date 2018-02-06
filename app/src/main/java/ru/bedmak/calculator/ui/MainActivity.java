@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import ru.bedmak.calculator.MainViewListener;
-import ru.bedmak.calculator.Operations;
+import ru.bedmak.calculator.ui.base.BaseFragment;
+import ru.bedmak.calculator.utils.Operations;
 import ru.bedmak.calculator.R;
 
 

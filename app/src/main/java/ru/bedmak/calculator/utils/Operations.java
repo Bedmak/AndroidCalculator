@@ -1,4 +1,4 @@
-package ru.bedmak.calculator;
+package ru.bedmak.calculator.utils;
 
 import java.util.Random;
 

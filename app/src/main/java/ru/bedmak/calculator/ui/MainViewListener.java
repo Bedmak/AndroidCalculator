@@ -1,5 +1,7 @@
-package ru.bedmak.calculator;
+package ru.bedmak.calculator.ui;
 
+
+import ru.bedmak.calculator.utils.Operations;
 
 public interface MainViewListener {
 
