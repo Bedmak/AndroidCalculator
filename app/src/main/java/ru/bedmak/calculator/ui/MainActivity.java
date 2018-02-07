@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import ru.bedmak.calculator.ui.base.BaseFragment;
 import ru.bedmak.calculator.utils.Operations;
 import ru.bedmak.calculator.R;
 
 
-public class MainActivity extends AppCompatActivity implements MainViewListener {
+public class MainActivity extends AppCompatActivity implements MvpView {
 
     private TextView textView;
     private TextView textViewSmall;
@@ -25,8 +24,8 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
         textViewSmall = findViewById(R.id.textViewSmall);
         operations = new Operations();
         if (savedInstanceState != null) {
-            setResult(savedInstanceState.getString("onScreen"));
-            setSmallResult(savedInstanceState.getString("onSmallScreen"));
+            showResult(savedInstanceState.getString("onScreen"));
+            showSmallResult(savedInstanceState.getString("onSmallScreen"));
             operations.setTypeOperation(savedInstanceState.getInt("typeOperation"));
             operations.setDot(savedInstanceState.getBoolean("isDot"));
             operations.setMinus(savedInstanceState.getBoolean("isMinus"));
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
     }
 
     @Override
-    public void setResult(String value) {
+    public void showResult(String value) {
         textView.setText(value);
     }
 
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainViewListener 
     }
 
     @Override
-    public void setSmallResult(String value) { textViewSmall.setText(value); }
+    public void showSmallResult(String value) { textViewSmall.setText(value); }
 
     @Override
     public String getSmallResult() { return textViewSmall.getText().toString().split(" ")[0]; }

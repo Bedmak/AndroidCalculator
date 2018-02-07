@@ -48,49 +48,49 @@ public class AdditionalPanelFragment extends BaseFragment {
 
     private void initAdditionalButtons(View view) {
         view.findViewById(R.id.buttonRand).setOnClickListener
-                (v -> listener.setResult(operations.getRandomNumber()));
+                (v -> listener.showResult(operations.getRandomNumber()));
         view.findViewById(R.id.buttonPi).setOnClickListener
-                (v -> listener.setResult(operations.getPiNumber()));
+                (v -> listener.showResult(operations.getPiNumber()));
         view.findViewById(R.id.buttonE).setOnClickListener
-                (v -> listener.setResult(operations.getENumber()));
+                (v -> listener.showResult(operations.getENumber()));
         view.findViewById(R.id.buttonFact).setOnClickListener
-                (v -> listener.setResult(Integer.toString(operations.getFactorial(Integer.parseInt(listener.getResult())))));
+                (v -> listener.showResult(Integer.toString(operations.getFactorial(Integer.parseInt(listener.getResult())))));
         view.findViewById(R.id.buttonSin).setOnClickListener
-                (v -> listener.setResult(operations.getSin(listener.getResult(), flagRadDeg)));
+                (v -> listener.showResult(operations.getSin(listener.getResult(), flagRadDeg)));
         view.findViewById(R.id.buttonSinh).setOnClickListener
-                (v -> listener.setResult(operations.getSinh(listener.getResult())));
+                (v -> listener.showResult(operations.getSinh(listener.getResult())));
         view.findViewById(R.id.buttonCos).setOnClickListener
-                (v -> listener.setResult(operations.getCos(listener.getResult(), flagRadDeg)));
+                (v -> listener.showResult(operations.getCos(listener.getResult(), flagRadDeg)));
         view.findViewById(R.id.buttonCosh).setOnClickListener
-                (v -> listener.setResult(operations.getCosh(listener.getResult())));
+                (v -> listener.showResult(operations.getCosh(listener.getResult())));
         view.findViewById(R.id.buttonTan).setOnClickListener
-                (v -> listener.setResult(operations.getTan(listener.getResult(), flagRadDeg)));
+                (v -> listener.showResult(operations.getTan(listener.getResult(), flagRadDeg)));
         view.findViewById(R.id.buttonTanh).setOnClickListener
-                (v -> listener.setResult(operations.getTanh(listener.getResult())));
+                (v -> listener.showResult(operations.getTanh(listener.getResult())));
         view.findViewById(R.id.buttonRadDeg).setOnClickListener(this::changeRadForDeg);
         view.findViewById(R.id.buttonLn).setOnClickListener
-                (v -> listener.setResult(operations.getLn(listener.getResult())));
+                (v -> listener.showResult(operations.getLn(listener.getResult())));
         view.findViewById(R.id.buttonLog).setOnClickListener
-                (v -> listener.setResult(operations.getLog(listener.getResult())));
+                (v -> listener.showResult(operations.getLog(listener.getResult())));
 
         view.findViewById(R.id.button_2nd_degree).setOnClickListener
-                (v -> listener.setResult(operations.get2ndDegree(listener.getResult())));
+                (v -> listener.showResult(operations.get2ndDegree(listener.getResult())));
         ((Button) view.findViewById(R.id.button_2nd_degree)).setText(fromHtml("x<sup>2</sup>"));
 
         view.findViewById(R.id.button_3nd_degree).setOnClickListener
-                (v -> listener.setResult(operations.get3ndDegree(listener.getResult())));
+                (v -> listener.showResult(operations.get3ndDegree(listener.getResult())));
         ((Button) view.findViewById(R.id.button_3nd_degree)).setText(fromHtml("x<sup>3</sup>"));
 
         view.findViewById(R.id.button_ynd_degree)
                 .setOnClickListener(v -> {
-                    listener.setSmallResult(listener.getResult() + " " + operations.getOperation(5));
-                    listener.setResult("0");
+                    listener.showSmallResult(listener.getResult() + " " + operations.getOperation(5));
+                    listener.showResult("0");
                     operations.setOperation(5);
                 });
         ((Button) view.findViewById(R.id.button_ynd_degree)).setText(fromHtml("x<sup>y</sup>"));
 
         view.findViewById(R.id.buttonSQRT).setOnClickListener
-                (v -> listener.setResult(operations.getSQRT(listener.getResult())));
+                (v -> listener.showResult(operations.getSQRT(listener.getResult())));
         view.findViewById(R.id.button_memory_clean).setOnClickListener
                 (v -> operations.cleanMemory());
         view.findViewById(R.id.button_memory_sum).setOnClickListener
@@ -98,7 +98,7 @@ public class AdditionalPanelFragment extends BaseFragment {
         view.findViewById(R.id.button_memory_sub).setOnClickListener
                 (v -> operations.subMemory(listener.getResult()));
         view.findViewById(R.id.button_memory_display).setOnClickListener
-                (v -> listener.setResult(operations.displayMemory()));
+                (v -> listener.showResult(operations.displayMemory()));
     }
 
     @SuppressWarnings("deprecation")

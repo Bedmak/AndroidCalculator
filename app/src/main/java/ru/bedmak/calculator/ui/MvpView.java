@@ -3,12 +3,12 @@ package ru.bedmak.calculator.ui;
 
 import ru.bedmak.calculator.utils.Operations;
 
-public interface MainViewListener {
+public interface MvpView {
 
-    void setResult(String text);
+    void showResult(String text);
     String getResult();
 
-    void setSmallResult(String text);
+    void showSmallResult(String text);
     String getSmallResult();
 
     Operations getOperations();

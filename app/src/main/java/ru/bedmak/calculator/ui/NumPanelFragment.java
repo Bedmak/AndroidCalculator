@@ -31,15 +31,15 @@ public class NumPanelFragment extends BaseFragment {
     private void initButtons(View view) {
         view.findViewById(R.id.buttonAC).setOnClickListener
                 (v -> {
-                    listener.setResult("0");
-                    listener.setSmallResult("");
+                    listener.showResult("0");
+                    listener.showSmallResult("");
                     operations.setMinus(false);
                     operations.setDot(false);
                 });
         view.findViewById(R.id.buttonPlusMinus).setOnClickListener
-                (v -> listener.setResult(operations.setMinusPlus(listener.getResult())));
+                (v -> listener.showResult(operations.setMinusPlus(listener.getResult())));
         view.findViewById(R.id.buttonPercent).setOnClickListener
-                (v -> listener.setResult(operations.getPercents(Double.parseDouble(listener.getResult()))));
+                (v -> listener.showResult(operations.getPercents(Double.parseDouble(listener.getResult()))));
         view.findViewById(R.id.buttonAddition).setOnClickListener
                 (v -> setOperation(1));
         view.findViewById(R.id.buttonSubtraction).setOnClickListener
@@ -51,46 +51,46 @@ public class NumPanelFragment extends BaseFragment {
         view.findViewById(R.id.buttonEquality).setOnClickListener
                 (v -> displayResult());
         view.findViewById(R.id.buttonDot).setOnClickListener
-                (v -> listener.setResult(operations.setDisplayDot(listener.getResult())));
+                (v -> listener.showResult(operations.setDisplayDot(listener.getResult())));
         view.findViewById(R.id.button_0).setOnClickListener
-                (v -> setText("0"));
+                (v -> setNumber("0"));
         view.findViewById(R.id.button_1).setOnClickListener
-                (v -> setText("1"));
+                (v -> setNumber("1"));
         view.findViewById(R.id.button_2).setOnClickListener
-                (v -> setText("2"));
+                (v -> setNumber("2"));
         view.findViewById(R.id.button_3).setOnClickListener
-                (v -> setText("3"));
+                (v -> setNumber("3"));
         view.findViewById(R.id.button_4).setOnClickListener
-                (v -> setText("4"));
+                (v -> setNumber("4"));
         view.findViewById(R.id.button_5).setOnClickListener
-                (v -> setText("5"));
+                (v -> setNumber("5"));
         view.findViewById(R.id.button_6).setOnClickListener
-                (v -> setText("6"));
+                (v -> setNumber("6"));
         view.findViewById(R.id.button_7).setOnClickListener
-                (v -> setText("7"));
+                (v -> setNumber("7"));
         view.findViewById(R.id.button_8).setOnClickListener
-                (v -> setText("8"));
+                (v -> setNumber("8"));
         view.findViewById(R.id.button_9).setOnClickListener
-                (v -> setText("9"));
+                (v -> setNumber("9"));
     }
 
-    private void setText(String num) {
+    private void setNumber(String num) {
         String text = "";
         if(!listener.getResult().equals("0")) {
             text = listener.getResult();
         }
-        listener.setResult(text + num);
+        listener.showResult(text + num);
     }
 
     private void setOperation(int type) {
-        listener.setSmallResult(listener.getResult() + " " + operations.getOperation(type));
-        listener.setResult("0");
+        listener.showSmallResult(listener.getResult() + " " + operations.getOperation(type));
+        listener.showResult("0");
         operations.setOperation(type);
     }
 
     private void displayResult() {
-        listener.setResult(operations.doOperation(listener.getResult(), listener.getSmallResult()));
-        listener.setSmallResult("");
+        listener.showResult(operations.doOperation(listener.getResult(), listener.getSmallResult()));
+        listener.showSmallResult("");
     }
 
 
