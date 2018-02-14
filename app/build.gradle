@@ -24,13 +24,14 @@ android {
 }
 
 dependencies {
-    compile(
+    implementation(
             "com.android.support:appcompat-v7:$support",
             "com.android.support.constraint:constraint-layout:$constraint",
-            "com.android.support:support-v4:$support"
+            "com.android.support:support-v4:$support",
+            "com.jakewharton:butterknife:$butterKnife"
     )
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile "junit:junit:$junit"
+
+    annotationProcessor(
+            "com.jakewharton:butterknife-compiler:$butterKnife"
+    )
 }

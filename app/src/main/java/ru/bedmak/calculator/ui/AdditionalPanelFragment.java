@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import ru.bedmak.calculator.ui.base.BaseFragment;
 import ru.bedmak.calculator.utils.Operations;
 import ru.bedmak.calculator.R;
@@ -17,14 +21,25 @@ import ru.bedmak.calculator.R;
 
 public class AdditionalPanelFragment extends BaseFragment {
 
+    @BindView(R.id.button_2nd_degree)
+    Button button2ndDegree;
+
+    @BindView(R.id.button_3nd_degree)
+    Button button3ndDegree;
+
+    @BindView(R.id.button_ynd_degree)
+    Button buttonyndDegree;
+
+    private Unbinder unbinder;
     private Operations operations;
     private boolean flagRadDeg = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_additional_panel, container, false);
+        View view = inflater.inflate(R.layout.fragment_additional_panel, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -36,7 +51,7 @@ public class AdditionalPanelFragment extends BaseFragment {
                 ((Button) view.findViewById(R.id.buttonRadDeg)).setText(R.string.button_deg);
             }
         }
-        initAdditionalButtons(view);
+        initDegreeButtons();
         operations = listener.getOperations();
     }
 
@@ -46,59 +61,123 @@ public class AdditionalPanelFragment extends BaseFragment {
         outState.putBoolean("flagRadDeg", flagRadDeg);
     }
 
-    private void initAdditionalButtons(View view) {
-        view.findViewById(R.id.buttonRand).setOnClickListener
-                (v -> listener.showResult(operations.getRandomNumber()));
-        view.findViewById(R.id.buttonPi).setOnClickListener
-                (v -> listener.showResult(operations.getPiNumber()));
-        view.findViewById(R.id.buttonE).setOnClickListener
-                (v -> listener.showResult(operations.getENumber()));
-        view.findViewById(R.id.buttonFact).setOnClickListener
-                (v -> listener.showResult(Integer.toString(operations.getFactorial(Integer.parseInt(listener.getResult())))));
-        view.findViewById(R.id.buttonSin).setOnClickListener
-                (v -> listener.showResult(operations.getSin(listener.getResult(), flagRadDeg)));
-        view.findViewById(R.id.buttonSinh).setOnClickListener
-                (v -> listener.showResult(operations.getSinh(listener.getResult())));
-        view.findViewById(R.id.buttonCos).setOnClickListener
-                (v -> listener.showResult(operations.getCos(listener.getResult(), flagRadDeg)));
-        view.findViewById(R.id.buttonCosh).setOnClickListener
-                (v -> listener.showResult(operations.getCosh(listener.getResult())));
-        view.findViewById(R.id.buttonTan).setOnClickListener
-                (v -> listener.showResult(operations.getTan(listener.getResult(), flagRadDeg)));
-        view.findViewById(R.id.buttonTanh).setOnClickListener
-                (v -> listener.showResult(operations.getTanh(listener.getResult())));
-        view.findViewById(R.id.buttonRadDeg).setOnClickListener(this::changeRadForDeg);
-        view.findViewById(R.id.buttonLn).setOnClickListener
-                (v -> listener.showResult(operations.getLn(listener.getResult())));
-        view.findViewById(R.id.buttonLog).setOnClickListener
-                (v -> listener.showResult(operations.getLog(listener.getResult())));
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
-        view.findViewById(R.id.button_2nd_degree).setOnClickListener
-                (v -> listener.showResult(operations.get2ndDegree(listener.getResult())));
-        ((Button) view.findViewById(R.id.button_2nd_degree)).setText(fromHtml("x<sup>2</sup>"));
+    @OnClick(R.id.buttonRand)
+    public void setRandomNumber() {
+        listener.showResult(operations.getRandomNumber());
+    }
 
-        view.findViewById(R.id.button_3nd_degree).setOnClickListener
-                (v -> listener.showResult(operations.get3ndDegree(listener.getResult())));
-        ((Button) view.findViewById(R.id.button_3nd_degree)).setText(fromHtml("x<sup>3</sup>"));
+    @OnClick(R.id.buttonPi)
+    public void setPiNumber() {
+        listener.showResult(operations.getPiNumber());
+    }
 
-        view.findViewById(R.id.button_ynd_degree)
-                .setOnClickListener(v -> {
-                    listener.showSmallResult(listener.getResult() + " " + operations.getOperation(5));
-                    listener.showResult("0");
-                    operations.setOperation(5);
-                });
-        ((Button) view.findViewById(R.id.button_ynd_degree)).setText(fromHtml("x<sup>y</sup>"));
+    @OnClick(R.id.buttonE)
+    public void setENumber() {
+        listener.showResult(operations.getENumber());
+    }
 
-        view.findViewById(R.id.buttonSQRT).setOnClickListener
-                (v -> listener.showResult(operations.getSQRT(listener.getResult())));
-        view.findViewById(R.id.button_memory_clean).setOnClickListener
-                (v -> operations.cleanMemory());
-        view.findViewById(R.id.button_memory_sum).setOnClickListener
-                (v -> operations.sumMemory(listener.getResult()));
-        view.findViewById(R.id.button_memory_sub).setOnClickListener
-                (v -> operations.subMemory(listener.getResult()));
-        view.findViewById(R.id.button_memory_display).setOnClickListener
-                (v -> listener.showResult(operations.displayMemory()));
+    @OnClick(R.id.buttonFact)
+    public void setFact() {
+        listener.showResult(Integer.toString(operations.getFactorial(Integer.parseInt(listener.getResult()))));
+    }
+
+    @OnClick(R.id.buttonSin)
+    public void setSin() {
+        listener.showResult(operations.getSin(listener.getResult(), flagRadDeg));
+    }
+
+    @OnClick(R.id.buttonSinh)
+    public void setSinh() {
+        listener.showResult(operations.getSinh(listener.getResult()));
+    }
+
+    @OnClick(R.id.buttonCos)
+    public void setCos() {
+        listener.showResult(operations.getCos(listener.getResult(), flagRadDeg));
+    }
+
+    @OnClick(R.id.buttonCosh)
+    public void setCosh() {
+        listener.showResult(operations.getCosh(listener.getResult()));
+    }
+
+    @OnClick(R.id.buttonTan)
+    public void setTan() {
+        listener.showResult(operations.getTan(listener.getResult(), flagRadDeg));
+    }
+
+    @OnClick(R.id.buttonTanh)
+    public void setTanh() {
+        listener.showResult(operations.getTanh(listener.getResult()));
+    }
+
+    @OnClick(R.id.buttonRadDeg)
+    public void changeRadDeg(Button button) {
+        if (flagRadDeg) {
+            button.setText(R.string.button_rad);
+        } else {
+            button.setText(R.string.button_deg);
+        }
+        flagRadDeg = !flagRadDeg;
+    }
+
+    @OnClick(R.id.buttonLn)
+    public void setLn() {
+        listener.showResult(operations.getLn(listener.getResult()));
+    }
+
+    @OnClick(R.id.buttonLog)
+    public void setLog() {
+        listener.showResult(operations.getLog(listener.getResult()));
+    }
+
+    @OnClick(R.id.buttonSQRT)
+    public void setSQRT() {
+        listener.showResult(operations.getSQRT(listener.getResult()));
+    }
+
+    @OnClick(R.id.button_memory_clean)
+    public void cleanMemory() {
+        operations.cleanMemory();
+    }
+
+    @OnClick(R.id.button_memory_sum)
+    public void sumMemory() {
+        operations.sumMemory(listener.getResult());
+    }
+
+    @OnClick(R.id.button_memory_sub)
+    public void subMemory() {
+        operations.subMemory(listener.getResult());
+    }
+
+    @OnClick(R.id.button_memory_display)
+    public void displayMemory() {
+        listener.showResult(operations.displayMemory());
+    }
+
+    private void initDegreeButtons() {
+
+        button2ndDegree.setText(fromHtml("x<sup>2</sup>"));
+        button2ndDegree.setOnClickListener(v ->
+                listener.showResult(operations.get2ndDegree(listener.getResult())));
+
+        button3ndDegree.setText(fromHtml("x<sup>3</sup>"));
+        button3ndDegree.setOnClickListener(v ->
+                listener.showResult(operations.get3ndDegree(listener.getResult())));
+
+        buttonyndDegree.setText(fromHtml("x<sup>y</sup>"));
+        buttonyndDegree.setOnClickListener(v -> {
+            listener.showSmallResult(listener.getResult() + " " + operations.getOperation(5));
+            listener.showResult("0");
+            operations.setOperation(5);
+        });
     }
 
     @SuppressWarnings("deprecation")
@@ -112,14 +191,5 @@ public class AdditionalPanelFragment extends BaseFragment {
         return result;
     }
 
-    private void changeRadForDeg(View view) {
-        Button RadDegButton =  view.findViewById(R.id.buttonRadDeg);
-        if (flagRadDeg) {
-            RadDegButton.setText(R.string.button_rad);
-        } else {
-            RadDegButton.setText(R.string.button_deg);
-        }
-        flagRadDeg = !flagRadDeg;
-    }
 
 }

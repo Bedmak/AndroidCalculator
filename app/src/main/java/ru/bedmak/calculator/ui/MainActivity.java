@@ -6,22 +6,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.bedmak.calculator.utils.Operations;
 import ru.bedmak.calculator.R;
 
 
 public class MainActivity extends AppCompatActivity implements MvpView {
 
-    private TextView textView;
-    private TextView textViewSmall;
+    @BindView(R.id.textView)
+    TextView textView;
+
+    @BindView(R.id.textViewSmall)
+    TextView textViewSmall;
+
     private Operations operations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.textView);
-        textViewSmall = findViewById(R.id.textViewSmall);
+        ButterKnife.bind(this);
         operations = new Operations();
         if (savedInstanceState != null) {
             showResult(savedInstanceState.getString("onScreen"));
